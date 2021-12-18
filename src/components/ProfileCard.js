@@ -23,7 +23,7 @@ const ProfileCard = () => {
         }),
       }
     ).then((response) => response.json());
-    console.log(response[0].user_experiences[0].company_name.slice(0, 5));
+    // console.log(response[0].user_experiences[0].company_name.slice(0, 5));
     setData(response);
   };
 
