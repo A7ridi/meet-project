@@ -23,18 +23,18 @@ const ProfileCard = () => {
         }),
       }
     ).then((response) => response.json());
-    // console.log(response[0].user_experiences[0].company_name.slice(0, 5));
     setData(response);
   };
 
   useEffect(() => {
     fetchedData();
   }, []);
+
   return (
     <Card
       sx={{
         display: "flex",
-        width: "70%",
+        // width: "70%",
       }}
       elevation={4}
     >
@@ -42,110 +42,115 @@ const ProfileCard = () => {
         <>
           <CardMedia
             component="img"
-            sx={{ width: 390, height: 550 }}
+            sx={{ width: 390, height: 506 }}
             image={data[0].user_image_url}
             alt="Live from space album cover"
           />
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
               padding: "30px",
               marginLeft: "20px",
+              height: 506,
+              overflow: "auto",
             }}
           >
-            <CardContent
+            <Box
               sx={{
                 display: "flex",
+                flexDirection: "column",
               }}
             >
-              <Typography
-                component="div"
-                variant="p"
-                sx={{ fontWeight: 600, fontSize: "16px" }}
-              >
-                {data[0].jobseeker_name}
-              </Typography>
-              <Box
-                sx={{
-                  borderLeft: "2px solid #14967b",
-                  height: "22px",
-                  margin: "0 10px",
-                }}
-              />
-              <Box
-                component="div"
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <LocationOnIcon
-                  fontSize="small"
-                  sx={{ color: "#14967b", marginRight: "5px" }}
-                />
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="p"
-                  sx={{
-                    fontSize: "15px",
-                  }}
-                >
-                  {data[0].area}, {data[0].distric}
-                </Typography>
-              </Box>
-            </CardContent>
-            <Box component="div">
-              <Box
-                component="div"
-                sx={{ display: "flex", alignItems: "center", pl: 2, pb: 1 }}
-              >
-                <BusinessCenterIcon
-                  fontSize="medium"
-                  sx={{ color: "#14967b", marginRight: "10px" }}
-                />
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="p"
-                  sx={{
-                    fontSize: "15px",
-                    pt: 1,
-                    color: "#14967b",
-                  }}
-                >
-                  EXPERIENCE
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="p"
-                  sx={{
-                    fontSize: "10px",
-                    pt: 1,
-                    background: "#14967b",
-                    color: "#fff",
-                    p: "2px 10px",
-                    ml: 2,
-                    borderRadius: "5px",
-                  }}
-                >
-                  {`${(data[0].total_months_exp / 12) | 0}` +
-                    "." +
-                    `${data[0].total_months_exp % 12}` +
-                    " yrs Exp"}
-                </Typography>
-              </Box>
-              <Box
-                component="div"
+              <CardContent
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-
-                  pl: 2,
-                  pb: 1,
                 }}
               >
-                {data[0]?.user_experiences
-                  .map((exp, index) => (
+                <Typography
+                  component="div"
+                  variant="p"
+                  sx={{ fontWeight: 600, fontSize: "16px" }}
+                >
+                  {data[0].jobseeker_name}
+                </Typography>
+                <Box
+                  sx={{
+                    borderLeft: "2px solid #14967b",
+                    height: "22px",
+                    margin: "0 10px",
+                  }}
+                />
+                <Box
+                  component="div"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <LocationOnIcon
+                    fontSize="small"
+                    sx={{ color: "#5BC2A8", marginRight: "5px" }}
+                  />
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="p"
+                    sx={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    {data[0].area}, {data[0].distric}
+                  </Typography>
+                </Box>
+              </CardContent>
+              <Box component="div">
+                <Box
+                  component="div"
+                  sx={{ display: "flex", alignItems: "center", pl: 2, pb: 1 }}
+                >
+                  <BusinessCenterIcon
+                    fontSize="medium"
+                    sx={{ color: "#5BC2A8", marginRight: "10px" }}
+                  />
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="p"
+                    sx={{
+                      fontSize: "15px",
+                      pt: 1,
+                      color: "#5BC2A8",
+                    }}
+                  >
+                    EXPERIENCE
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="p"
+                    sx={{
+                      fontSize: "10px",
+                      pt: 1,
+                      background: "#5BC2A8",
+                      color: "#fff",
+                      p: "2px 10px",
+                      ml: 2,
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {`${(data[0].total_months_exp / 12) | 0}` +
+                      "." +
+                      `${data[0].total_months_exp % 12}` +
+                      " yrs Exp"}
+                  </Typography>
+                </Box>
+                <Box
+                  component="div"
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+
+                    pl: 2,
+                    pb: 1,
+                  }}
+                >
+                  {data[0]?.user_experiences.map((exp, index) => (
                     <>
                       <Box
                         component="div"
@@ -199,86 +204,45 @@ const ProfileCard = () => {
                           ml: "35px",
                         }}
                       >
-                        {exp?.company_starting_date} -{" "}
-                        {exp?.company_ending_date}
+                        {exp.company_starting_date !== undefined
+                          ? new Date(
+                              exp?.company_starting_date
+                            )?.toLocaleDateString("en", {
+                              year: "numeric",
+                              month: "short",
+                            })
+                          : "Date not present"}{" "}
+                        -{" "}
+                        {exp.company_ending_date == "Present"
+                          ? "Present"
+                          : exp.company_ending_date !== undefined
+                          ? new Date(
+                              exp?.company_ending_date
+                            )?.toLocaleDateString("en", {
+                              year: "numeric",
+                              month: "short",
+                            })
+                          : "Date not present"}
                       </Typography>
                     </>
-                  ))
-                  .slice(0, 2)}
+                  ))}
+                </Box>
               </Box>
-            </Box>
 
-            <Box component="div">
-              <Box
-                component="div"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  pl: 2,
-                  pb: 1,
-                  mt: 3,
-                }}
-              >
-                <SchoolIcon
-                  fontSize="medium"
-                  sx={{ color: "#14967b", marginRight: "10px" }}
-                />
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="p"
-                  sx={{
-                    fontSize: "15px",
-                    pt: 1,
-                    color: "#14967b",
-                  }}
-                >
-                  EDUCATION
-                </Typography>
-              </Box>
-              <Box
-                component="div"
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  pl: 2,
-                  pb: 1,
-                  ml: "35px",
-                }}
-              >
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="h6"
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: 600,
-                    pt: 1,
-                  }}
-                >
-                  {data[0].user_qualifications[0].course_abbreviation} -{" "}
-                  {data[0].user_qualifications[0].course_name}
-                </Typography>
+              <Box component="div">
                 <Box
                   component="div"
-                  sx={{ display: "flex", alignItems: "center" }}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    pl: 2,
+                    pb: 1,
+                    mt: 3,
+                  }}
                 >
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    component="p"
-                    sx={{
-                      fontSize: "17px",
-                    }}
-                  >
-                    {data[0].user_qualifications[0].user_college}
-                  </Typography>
-                  <Box
-                    sx={{
-                      borderLeft: "1px solid #000",
-                      height: "15px",
-                      margin: "0 5px",
-                    }}
+                  <SchoolIcon
+                    fontSize="medium"
+                    sx={{ color: "#5BC2A8", marginRight: "10px" }}
                   />
                   <Typography
                     variant="subtitle1"
@@ -286,11 +250,69 @@ const ProfileCard = () => {
                     component="p"
                     sx={{
                       fontSize: "15px",
+                      pt: 1,
+                      color: "#5BC2A8",
                     }}
                   >
-                    undefined -{" "}
-                    {data[0].user_qualifications[0].user_passing_year}
+                    EDUCATION
                   </Typography>
+                </Box>
+                <Box
+                  component="div"
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    pl: 2,
+                    pb: 2,
+                    ml: "35px",
+                  }}
+                >
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="h6"
+                    sx={{
+                      fontSize: "18px",
+                      fontWeight: 600,
+                      pt: 1,
+                    }}
+                  >
+                    {data[0].user_qualifications[0].course_abbreviation} -{" "}
+                    {data[0].user_qualifications[0].course_name}
+                  </Typography>
+                  <Box
+                    component="div"
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      color="text.secondary"
+                      component="p"
+                      sx={{
+                        fontSize: "17px",
+                      }}
+                    >
+                      {data[0].user_qualifications[0].user_college}
+                    </Typography>
+                    <Box
+                      sx={{
+                        borderLeft: "1px solid #000",
+                        height: "15px",
+                        margin: "0 5px",
+                      }}
+                    />
+                    <Typography
+                      variant="subtitle1"
+                      color="text.secondary"
+                      component="p"
+                      sx={{
+                        fontSize: "15px",
+                      }}
+                    >
+                      undefined -{" "}
+                      {data[0].user_qualifications[0].user_passing_year}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>

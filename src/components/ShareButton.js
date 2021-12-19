@@ -5,9 +5,9 @@ import ShareIcon from "@mui/icons-material/Share";
 
 const PostButton = styled(Button)(({ theme }) => ({
   color: "#14967b",
-  borderColor: " #14967b",
+  borderColor: "#14967b",
   textTransform: "initial",
-  position: "absolute",
+  // position: "absolute",
   top: "-20px",
   background: "#fff",
   "&:hover": {

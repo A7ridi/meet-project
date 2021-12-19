@@ -7,7 +7,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import MyLocationIcon from "@mui/icons-material/MyLocation";
+import ExploreIcon from "@mui/icons-material/Explore";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import Button from "@mui/material/Button";
@@ -40,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
       color: "#14967b",
     },
   },
+  linkBox: {
+    textDecoration: "none",
+    fontSize: "15px",
+    margin: "0 18px",
+    color: "#14967b",
+  },
   rightLink1: {
     textDecoration: "none",
     color: "#14967b",
@@ -49,6 +55,15 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     borderRadius: "20px",
   },
+  box1: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "17px",
+    cursor: "pointer",
+    color: "#5BC2A8",
+    borderBottom: "3px solid #5BC2A8",
+  },
   box: {
     display: "flex",
     flexDirection: "column",
@@ -56,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "17px",
     cursor: "pointer",
     "&:hover": {
-      color: "#14967b",
-      borderBottom: "2px solid #14967b",
+      color: "#5BC2A8",
+      borderBottom: "3px solid #5BC2A8",
     },
   },
 }));
@@ -87,13 +102,14 @@ const Header = () => {
     <AppBar position="static" className={classes.root}>
       <CssBaseline />
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h5" className={classes.logo}>
+        {/* <Typography variant="h5" className={classes.logo}>
           Logo
-        </Typography>
+        </Typography> */}
+        <img src="../../assets/logo.png" alt="logo" />
         <div className={classes.navlinks}>
-          <div className={classes.box}>
-            <MyLocationIcon />
-            <Link to="/" className={classes.link}>
+          <div className={classes.box1}>
+            <ExploreIcon />
+            <Link to="/" className={classes.linkBox}>
               Discovery
             </Link>
           </div>
